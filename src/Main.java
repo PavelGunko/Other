@@ -36,36 +36,41 @@ public class Main {
             counts[productNum] += productCount;
         }
 
+
         System.out.println("Ваша корзина покупок:");
         int sum = 0;
         for (int i = 0; i < products.length; i++) {
-            sum += prices[i] * counts[i];
+          
         }
-        boolean doBonus = sum >= MIN_COST_FOR_BONUS;
+        int sumdoBonus = 0;
+        boolean doBonus = sumdoBonus <= MIN_COST_FOR_BONUS;
         for (int i = 0; i < products.length; i++) {
             if (counts[i] != 0) {
+                sumdoBonus += prices[i] * counts[i];
 
                 boolean isOnSale = false;
+
                 for (String saleProduct : productsOnSale) {
+
                     if (products[i].equals(saleProduct)) {
                         isOnSale = true;
+
                     }
                 }
 
                 if (isOnSale) {
                     System.out.println("\t" + products[i] + " " + (doBonus ? counts[i] + 1 : counts[i]) + " шт. за " +
-                            (prices[i] * (counts[i] / 3 * 2 +
-                                    counts[i] % 3)) + " руб. (распродажа!)");
-                    sum = prices[i] * (counts[i] / 3 * 2 + counts[i] % 3);
+                            (prices[i] * (counts[i] / 3 * 2 + counts[i] % 3)) + " руб. (распродажа!)");
+                    sum += prices[i] * (counts[i] / 3 * 2 + counts[i] % 3);
+
                 } else {
-                    System.out.println("\t" + products[i] + " " + (doBonus ? counts[i] + 1 : counts[i]) + " шт. за " +
-                            (prices[i] * counts[i]) + " руб.");
-                    sum = prices[i] * (doBonus ? counts[i] + 1 : counts[i]);
+                    System.out.println("\t" + products[i] + " " + counts[i] + " шт. за " + (prices[i] * counts[i]) + " руб.");
+                    sum += prices[i] * counts[i];
                 }
 
             }
         }
-        System.out.println("Итого: " + sum + " руб.");
+        System.out.println("Итого: "  + sum +" руб.");
     }
 
 }
